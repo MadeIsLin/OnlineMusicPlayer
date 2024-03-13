@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="js/jquery.js"></script>
+  <script type="text/javascript">
+    // ready是一个方法。function则是ready里面的参数，就是说等这个页面全部加载完之后就去执行写入的js
+    // $(document).ready(function(){
+    //   // @("button") : 选取button（按钮）元素
+    //   // 当button元素被点击的时候，会调用click回调函数。
+    //   $("button").click(function() {
+    //     // ${this} : 当前元素
+    //     // $(this).hide() : 把当前元素隐藏起来
+    //     $(this).hide();
+    //   })
+    // })
+
+    // 简写后
+    $(function() {
+      $("button").click(function() {
+        $(this).hide();
+      })
+    })
+  </script>
+</head>
+<body>
+  <button type="button">Click me</button>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.onlinemusicplayer.mapper.MusicMapper">
+<!--    存储上传的歌曲信息-->
+    <insert id="insert">
+        insert into music (title, singer, time, url, userid)
+        values (#{title}, #{singer}, #{time}, #{url}, #{userid});
+    </insert>
+    <!--
+        删除指定id的音乐
+    -->
+    <delete id="deleteMusicById">
+        delete from music where id=#{id};
+    </delete>
+    <!--    查询上传歌曲是否已经再数据库中存储了-->
+    <select id="select" resultType="java.lang.Integer">
+        select * from music where title=#{title} and singer=#{singer};
+    </select>
+    <!--
+        查询当前要删除的音乐是否在数据中存在
+    -->
+    <select id="selectMusicById" resultType="com.example.onlinemusicplayer.model.Music">
+        select * from music where id=#{id};
+    </select>
+
+
+
+<!--    查询方法（重载） -->
+    <select id="findByMusicByName" resultType="com.example.onlinemusicplayer.model.Music">
+        select * from music <where>
+        <if test="name != null">
+            title like concat('%', #{name}, '%');
+        </if>
+    </where>
+    </select>
+</mapper>

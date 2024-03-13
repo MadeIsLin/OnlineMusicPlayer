@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.onlinemusicplayer.mapper.LoveMusicMapper">
+<!--    收藏音乐 -->
+    <insert id="insertLoveMusic">
+        insert into lovemusic (user_id, music_id) values(#{userid}, #{musicid});
+    </insert>
+<!--    移除收藏表中的信息-->
+    <delete id="deleteLoveMusic">
+        delete from lovemusic where user_id=#{userid} and music_id=#{musicid};
+    </delete>
+    <delete id="deleteLoveMusicById">
+        delete from lovemusic where music_id=#{musicid};
+    </delete>
+    <!--    需要查询此次收藏的音乐，是否已经被收藏过 -->
+    <select id="findLoveMusicByMusicIdAndUserId" resultType="com.example.onlinemusicplayer.model.Music">
+        select * from lovemusic where user_id=#{userid} and music_id=#{musicid};
+    </select>
+    <select id="findLoveMusicByKeyAndUserId" resultType="com.example.onlinemusicplayer.model.Music">
+        select music.* from music,lovemusic where #{user_id}=lovemusic.user_id and music.id=lovemusic.music_id
+        <if test="title!=null">
+            and music.title like concat('%',#{title},'%')
+        </if>
+    </select>
+</mapper>
